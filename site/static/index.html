@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Polymer Starter Kit">
+<title>Baltimore Crimalyzer</title>
+
+<link rel="stylesheet" type="text/css" href=styles/index.css>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/iThing.css" type="text/css" />
+
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="bower_components/iron-selector/iron-selector.html">
+
+<!-- Because this project uses vulcanize this should be your only html import in this file. All other imports should go in elements.html -->
+<link rel="import" href="elements.html">
+
+<!-- For shared styles, shared-styles.html import in elements.html -->
+<style is="custom-style" include="shared-styles"></style>
+
+
+
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>-->
+
+</head>
+
+<body unresolved>
+<!--<div class="se-pre-con"></div>-->
+
+
+<span id="browser-sync-binding"></span>
+
+<template is="dom-bind" id="app">
+
+<paper-drawer-panel id="paperDrawerPanel" position="relative" force-narrow >
+<paper-scroll-header-panel drawer>
+<paper-toolbar id="drawerToolbar">
+<span class="menu-name">Filters</span>
+<span class="space"></span>
+<paper-icon-button id="paperToggle" icon="filter-list" paper-drawer-toggle></paper-icon-button>
+</paper-toolbar>
+
+<!-- Drawer Content -->
+<!-- filter side bar content -->
+
+<div class="filter">
+    <div id="crimetype-div">
+        <br>
+        <font class="filtername" size="5">Crime Type</font>
+    </div>
+
+
+    <div id="weapon-div">
+        <font class="filtername" size="5">Weapon Type</font>
+    </div>
+    <br>
+
+
+    <div id="filter-div">
+        <font class="filtername" size="5">District</font>
+    </div>
+
+
+    <dl class="dropdown1"> 
+        <dt>
+        <a href="#">
+            <span class="hida1">Select</span>    
+            <p class="multiSel1"></p>  
+        </a>
+        </dt>
+
+        <dd>
+        <ul>
+            <li id="mutliSelect1" class="mutliSelect1">
+            </li>
+        </ul>
+        </dd>
+    </dl>
+
+
+    <div id="filter-div">
+        <font class="filtername" size="5">Neighborhoods</font>
+    </div>
+
+    <dl class="dropdown2"> 
+
+        <dt>
+        <a href="#">
+            <span class="hida2">Select</span>    
+            <p class="multiSel2"></p>  
+        </a>
+        </dt>
+
+        <dd>
+        <div >
+            <ul>
+                <li id="mutliSelect2" class="mutliSelect2">
+                </li>
+
+            </ul> 
+        </div>
+        </dd>
+    </dl>
+    <br>
+    <br>    <br>
+    <br>    <br>
+    <br>    <br>
+    <br>    <br>
+    <br>    <br>
+    <br>
+</div>
+</paper-scroll-header-panel>
+
+<paper-header-panel main id="headerPanelMain" class="flex">
+
+<paper-toolbar id="mainToolbar">
+<paper-icon-button id="paperToggle" icon="filter-list" paper-drawer-toggle></paper-icon-button>
+<img src="images/logo.png" alt="Logo" style="width:65spx;height:65px;">
+<div>Baltimore Crimalyzer</div>
+
+<span class="space"></span>
+<!-- dropdown tabs -->
+<div class = "newtab">
+    <ul >
+        <li><a  id = "p" class="active" href="javascript:activateTab('mapView')" style="font-size: 100%;">Map View</a></li>
+        <li><a href="javascript:activateTab('tab')" style="font-size: 100%;">Tabular View</a></li>
+
+        <li class="dropdown1">
+        <a href="javascript:void(0)" class="dropbtn1" onclick="myFunction2()" style="font-size: 100%;">Pie Chart Views</a>
+        <div class="dropdown-content1" id="myDropdown1">
+            <a href="javascript:activateTab('chartsPie1')" style="font-size: 100%;">Crime Types</a>
+            <a href="javascript:activateTab('chartsPie2')" style="font-size: 100%;">Weapon Types</a>
+        </div>
+        </li>
+
+        <li class="dropdown2">
+        <a href="javascript:void(0)" class="dropbtn2" onclick="myFunction3()" style="font-size: 100%;">Bar Chart Views</a>
+        <div class="dropdown-content2" id="myDropdown2">
+            <a href="javascript:activateTab('chartsBar1')" style="font-size: 100%;">Districts</a>
+            <a href="javascript:activateTab('chartsBar2')" style="font-size: 100%;">Neighborhoods</a>
+
+        </div>
+        </li>
+
+        <li class="dropdown3">
+        <a href="javascript:void(0)" class="dropbtn3" onclick="myFunction4()" style="font-size: 100%;">Line Chart Views</a>
+        <div class="dropdown-content3" id="myDropdown3">
+            <a href="javascript:activateTab('chartsLine1')" style="font-size: 100%;">Crime Type vs. Date</a>
+            <a href="javascript:activateTab('chartsLine2')" style="font-size: 100%;">Weapon Type vs. Time of Day</a>
+
+        </div>
+        </li>
+    </ul>
+</div>
+</paper-toolbar>
+
+
+
+
+<!-- Main Content -->
+<div class="content">
+    <div id="tabCtrl">
+        <div id="mapView" style="display: block; height: 150%; width: 100%; position: absolute;">
+
+            <!-- Map Controls -->
+            <div class="floating-pane">
+                <button onclick="g_map.toggleHeatmap()">Toggle Heatmap</button>
+                <button onclick="g_map.toggleGradient()">Toggle Colors</button>
+                <button onclick="g_map.toggleRadius()">Toggle Radius</button>
+            </div>
+
+            <div id="map-div"> </div>
+
+        </div>  <!-- End of mapView -->
+
+        <div id="tab" style="display: none;">
+
+            <div id="tableChart"></div>
+
+        </div>
+
+        <div id="chartsPie1" style="display: none;">
+            <div class ="chartSameline" id = "crimeTypeChart" ></div>
+        </div>
+
+        <div id="chartsPie2" style="display: none;">
+            <div class ="chartSameline" id = "weaponChart" ></div>
+        </div>
+
+        <div id="chartsBar1" style="display: none;">
+            <div class ="chartSameline" id = "districtChart" ></div>
+        </div>
+
+        <div id="chartsBar2" style="display: none;">
+            <div class ="chartSameline" id = "neighborhoodChart" ></div>
+        </div>
+
+        <div id="chartsLine1" style="display: none;">
+            <div class ="chartSameline" id = "crimeTypeDateChart"></div>
+        </div>
+
+        <div id="chartsLine2" style="display: none;">
+            <div class ="chartSameline" id = "weaponTypeDateChart"></div>
+        </div>
+
+    </div>
+</div>
+</paper-header-panel>
+</paper-drawer-panel>
+
+
+
+
+
+
+
+<paper-toast id="toast">
+<span class="toast-hide-button" role="button" tabindex="0" onclick="app.$.toast.hide()">Ok</span>
+</paper-toast>
+
+</template>
+
+<div id= "histogram"></div>
+
+<div id = "slider"></div>
+
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<script src="//code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+<script src="/scripts/tabs.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="js/jQDateRangeSlider-min.js"></script>
+<script src="js/jquery.dynatable.js"></script>
+<script src="//underscorejs.org/underscore-min.js"</script>
+<script src="https://www.google.com/jsapi"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHGO0rSWk5Uu2zsDlz2kPhPuBEpu3VSTs&amp;libraries=visualization&amp;callback=initMap" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/filter.js"></script>
+<script src="scripts/filter_bar.js"></script>
+<script src="scripts/map.js"></script>
+<script src="scripts/chart.js"></script>
+
+
+</body>
+
+</html>
